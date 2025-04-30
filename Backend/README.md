@@ -61,3 +61,47 @@ The request body should be in JSON format and include the following fields:
 
 
 
+
+## `/users/profile` Endpoint
+
+### Description
+
+Retrieves the profile information of the currently authenticated user.
+
+### HTTP Method
+
+`GET`
+
+### Authentication
+
+Requires a valid JWT token in either:
+- Authorization header: `Bearer <token>`
+- Cookie: `token=<token>`
+
+### Example Response
+
+- `user` (object):
+  - `fullname` (object).
+   - `firstname` (string): User's first name (minimum 3 characters)
+   - `lastname` (string): User's last name (minimum 3 characters)
+  - `email` (string): User's email address (must be valid and unique)
+  
+
+
+
+## `/users/logout` Endpoint
+
+### Description
+
+Logs out the current user and blacklist the token provided in cookie or headers
+
+### HTTP Method
+
+`GET`
+
+### Authentication
+
+Requires a valid JWT token in either:
+- Cookie
+- Authorization header
+
