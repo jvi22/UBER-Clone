@@ -88,7 +88,6 @@ Requires a valid JWT token in either:
   
 
 
-
 ## `/users/logout` Endpoint
 
 ### Description
@@ -105,3 +104,43 @@ Requires a valid JWT token in either:
 - Cookie
 - Authorization header
 
+
+## `/captain/register` Endpoint
+
+### Description
+
+Registers a new captain (driver) by creating an account with personal and vehicle information.
+
+### HTTP Method
+
+`POST`
+
+### Request Body
+
+The request body should be in JSON format and include the following fields:
+
+- `fullname` (object):
+  - `firstname` (string, required): Captain's first name (minimum 3 characters)
+  - `lastname` (string, required): Captain's last name (minimum 3 characters)
+- `email` (string, required): Captain's email address (must be valid and unique)
+- `password` (string, required): Captain's password (minimum 6 characters)
+- `vehicle` (object):
+  - `color` (string, required): Vehicle color (minimum 3 characters)
+  - `plate` (string, required): Vehicle plate number (minimum 3 characters)
+  - `capacity` (number, required): Vehicle passenger capacity (minimum 1)
+  - `vehicleType` (string, required): Type of vehicle (must be 'car', 'bike', or 'auto')
+
+
+### Example Response
+- `captain` (object):
+  - `fullname` (object).
+   - `firstname` (string): Captain's first name 
+   - `lastname` (string): Captain's last name 
+  - `email` (string): Captain's email address 
+  - `password` (string): Captain's password 
+  - `vehicle` (object)
+   - `color` (string) vehicle color
+   - `plate` (string) vehicle number plate
+   - `capacity` (number) vehicle capacity
+   - `vehicleType` (string) vehicle type
+- `token` (String): JWT Token
