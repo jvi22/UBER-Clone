@@ -32,6 +32,7 @@ The request body should be in JSON format and include the following fields:
 - `token` (String): JWT Token
 
 
+
 ## `/users/login` Endpoint
 
 ### Description
@@ -130,7 +131,6 @@ The request body should be in JSON format and include the following fields:
   - `capacity` (number, required): Vehicle passenger capacity (minimum 1)
   - `vehicleType` (string, required): Type of vehicle (must be 'car', 'bike', or 'auto')
 
-
 ### Example Response
 - `captain` (object):
   - `fullname` (object).
@@ -159,12 +159,21 @@ Authenticates a captain by verifying their email and password. Returns a JWT tok
 
 ### Request Body
 
-```json
-{
-  "email": "john.smith@example.com", 
-  "password": "password123"          
-}
-```
+The request body should be in JSON format and include the following fields:
+
+- `email` (string, required): Captain's email address (must be valid).
+- `password` (string, required): Captain's password.
+
+### Example Response
+- `captain` (object):
+  - `fullname` (object).
+   - `firstname` (string): Captain's first name (minimum 3 characters)
+   - `lastname` (string): Captain's last name (minimum 3 characters)
+  - `email` (string): Captain's email address (must be valid and unique)
+  - `password` (string): Captain's password (minimum 6 characters)
+- `token` (String): JWT Token
+
+
 
 ## `/captains/profile` Endpoint
 
@@ -180,24 +189,15 @@ Requires a valid JWT token in either:
 - Cookie: `token=<token>`
 
 ### Example Response
-```json
-{
-  "captain": {
-    "fullname": {
-      "firstname": "John",
-      "lastname": "Doe"
-    },
-    "email": "john.doe@example.com",
-    "vehicle": {
-      "color": "red",
-      "plate": "ABC123",
-      "capacity": 3,
-      "vehicleType": "car"
-    },
-    "status": "active"
-  }
-}
-```
+
+- `captain` (object):
+  - `fullname` (object).
+   - `firstname` (string): Captain's first name (minimum 3 characters)
+   - `lastname` (string): Captain's last name (minimum 3 characters)
+  - `email` (string): Captain's email address (must be valid and unique)
+
+
+
 
 ## `/captains/logout` Endpoint
 
@@ -215,8 +215,5 @@ Requires a valid JWT token in either:
 - Cookie: `token=<JWT>`
 - Authorization header: `Bearer <JWT>`
 
-### Success Response (200 OK)
-```json
-{
-  "message": "Logged out successfully"
-}
+
+
