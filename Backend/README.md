@@ -105,7 +105,7 @@ Requires a valid JWT token in either:
 - Authorization header
 
 
-## `/captain/register` Endpoint
+## `/captains/register` Endpoint
 
 ### Description
 
