@@ -144,3 +144,79 @@ The request body should be in JSON format and include the following fields:
    - `capacity` (number) vehicle capacity
    - `vehicleType` (string) vehicle type
 - `token` (String): JWT Token
+
+
+
+## `/captains/login` Endpoint
+
+### Description
+
+Authenticates a captain by verifying their email and password. Returns a JWT token and captain details upon successful login.
+
+### HTTP Method
+
+`POST`
+
+### Request Body
+
+```json
+{
+  "email": "john.smith@example.com", 
+  "password": "password123"          
+}
+```
+
+## `/captains/profile` Endpoint
+
+### Description
+Retrieves the profile information of the currently authenticated captain.
+
+### HTTP Method
+`GET`
+
+### Authentication
+Requires a valid JWT token in either:
+- `Authorization` header: `Bearer <token>`
+- Cookie: `token=<token>`
+
+### Example Response
+```json
+{
+  "captain": {
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 3,
+      "vehicleType": "car"
+    },
+    "status": "active"
+  }
+}
+```
+
+## `/captains/logout` Endpoint
+
+### Description
+
+Logs out the current captain and blacklists the token provided in cookie or headers.
+
+### HTTP Method
+
+`GET`
+
+### Authentication
+
+Requires a valid JWT token in either:
+- Cookie: `token=<JWT>`
+- Authorization header: `Bearer <JWT>`
+
+### Success Response (200 OK)
+```json
+{
+  "message": "Logged out successfully"
+}
