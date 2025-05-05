@@ -11,7 +11,7 @@ const [lastName, setLastName] = useState('');
 const submitHandler = (e) => {
     e.preventDefault();
     setCaptainData({
-      username:{
+      fullName:{
         firstName: firstName,
         lastName: lastName
       },
