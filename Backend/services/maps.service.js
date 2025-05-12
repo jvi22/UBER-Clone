@@ -72,3 +72,4 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
         throw err;
     }
 }
+
