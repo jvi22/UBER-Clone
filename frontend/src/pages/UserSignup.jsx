@@ -113,7 +113,7 @@ const UserSignup = () => {
             >Create account</button>
 
           </form>
-          <p className='text-center text-sm'>Already have a account? <Link to='/login' className='text-blue-600'>Login here</Link></p>
+          <p className='text-center'>Already have a account? <Link to='/login' className='text-blue-600'>Login here</Link></p>
         </div>
         <div>
           <p className='text-gray-500 text-[10px] leading-tight'>This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy
@@ -124,4 +124,4 @@ const UserSignup = () => {
   )
 }
 
-export default UserSignup
+export default UserSignup;

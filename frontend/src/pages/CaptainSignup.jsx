@@ -61,7 +61,7 @@ const CaptainSignup = () => {
   return (
     <div className='py-4 px-6 h-screen flex flex-col justify-between'>
       <div>
-        <img className='w-13 mb-2' src="https://pngimg.com/d/uber_PNG24.png" alt="" />
+        <img className='w-16 mb-10' src="https://pngimg.com/d/uber_PNG24.png" alt="" />
 
         <form onSubmit={(e) => {
           submitHandler(e)
@@ -175,7 +175,7 @@ const CaptainSignup = () => {
         <p className='text-center'>Already have a account? <Link to='/captain-login' className='text-blue-600'>Login here</Link></p>
       </div>
       <div>
-        <p className='text-[10px] text-gray-500 mt-6 leading-tight'>This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy
+        <p className='text-[10px] text-gray-500 leading-tight'>This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy
           Policy</span> and <span className='underline'>Terms of Service apply</span>.</p>
       </div>
     </div>

@@ -4,40 +4,38 @@ const { validationResult } = require('express-validator');
 const blacklistTokenModel = require('../models/blacklistToken.model');
 
 module.exports.registerCaptain = async (req, res) => {
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(401).json({ errors: errors.array() });
     }
 
-const { fullname, email, password, vehicle } = req.body;
+    const { fullname, email, password, vehicle } = req.body;
 
-const isCaptainAlreadyExist = await captainModel.findOne({ email });
-if (isCaptainAlreadyExist) {
-    return res.status(401).json({ message: "Captain already exists" });
-}
-
-const hashedPassword = await captainModel.hashPassword(password);
-
-const captain = await captainModel.create({
-    fullname: {
-        firstname: fullname.firstname,
-        lastname: fullname.lastname
-    },
-    email,
-    password: hashedPassword,
-    vehicle: {
-        color: vehicle.color,
-        plate: vehicle.plate,
-        capacity: vehicle.capacity,
-        vehicleType: vehicle.vehicleType
+    const isCaptainAlreadyExist = await captainModel.findOne({ email });
+    if (isCaptainAlreadyExist) {
+        return res.status(401).json({ message: "Captain already exists" });
     }
-});
 
-const token = captain.generateAuthToken();
+    const hashedPassword = await captainModel.hashPassword(password);
 
-res.status(201).json({ token, captain} );
+    const captain = await captainModel.create({
+        fullname: {
+            firstname: fullname.firstname,
+            lastname: fullname.lastname
+        },
+        email,
+        password: hashedPassword,
+        vehicle: {
+            color: vehicle.color,
+            plate: vehicle.plate,
+            capacity: vehicle.capacity,
+            vehicleType: vehicle.vehicleType
+        }
+    });
 
+    const token = captain.generateAuthToken();
+
+    res.status(201).json({ token, captain} );
 }
 
 module.exports.loginCaptain = async (req, res) => {
@@ -70,11 +68,37 @@ module.exports.getCaptainProfile = async (req, res) => {
 }
 
 module.exports.logoutCaptain = async (req, res) => {
-    const token = req.cookies.token || req.headers.authorization?.split(' ')[ 1 ];
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
     
     await blacklistTokenModel.create({ token });
 
     res.clearCookie('token');
 
     res.status(200).json({ message: "Logged out successfully" });
+}
+
+// NEW FUNCTION: Set captain status (active/inactive)
+module.exports.setStatus = async (req, res) => {
+    try {
+        const { captainId, status } = req.body;
+        
+        // Validate status
+        if (!['active', 'inactive'].includes(status)) {
+            return res.status(400).json({ message: 'Invalid status value' });
+        }
+
+        const updatedCaptain = await captainModel.findByIdAndUpdate(
+            captainId,
+            { status },
+            { new: true }
+        );
+
+        if (!updatedCaptain) {
+            return res.status(404).json({ message: 'Captain not found' });
+        }
+
+        res.status(200).json(updatedCaptain);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 }
